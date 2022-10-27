@@ -8,6 +8,8 @@ import multer from 'multer'
 import { handleValidationResult } from './utils/handleValidationResult.js'
 import cors from 'cors'
 
+
+
 mongoose.connect('mongodb+srv://admin:wwwww@cluster0.kvojw2y.mongodb.net/blog?retryWrites=true&w=majority')
 	.then(() => console.log('DB ok'))
 	.catch((err) => console.log('db error', err))
@@ -41,7 +43,10 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
 
 app.post('/posts', checkAuth, postCreateValidation, handleValidationResult, PostController.create)
 app.get('/posts/:id', PostController.getOne)
+
 app.get('/posts', PostController.getAll)
+
+app.get('/tags', PostController.getLastTags)
 app.patch('/posts/:id', checkAuth, postCreateValidation, handleValidationResult, PostController.update)
 app.delete('/posts/:id', checkAuth, PostController.remove)
 

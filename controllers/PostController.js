@@ -1,7 +1,18 @@
 import PostModel from '../models/Post.js'
-import { validationResult } from 'express-validator'
 
 
+export const getLastTags = async (req, res) => {
+	try {
+		const posts = await PostModel.find().limit(5).exec()
+		const tags = posts.map(obj => obj.tags).flat().slice(0.5)
+		res.json(tags)
+	} catch (err) {
+		console.log(err)
+		res.status(500).json({
+			massage: 'Не вийшло завантажити тег'
+		})
+	}
+}
 
 export const getAll = async (req, res) => {
 	try {
@@ -48,7 +59,8 @@ export const getOne = async (req, res) => {
 
 				res.json(doc)
 
-			})
+			}
+		).populate('user')
 
 
 	} catch (err) {
@@ -63,16 +75,16 @@ export const getOne = async (req, res) => {
 export const remove = async (req, res) => {
 	try {
 
-		const postId = await req.params.id
+		const postId = req.params.id
 
-		await PostModel.findOneAndDelete(
+		PostModel.findOneAndDelete(
 			{
 				_id: postId
 			},
 			(err, doc) => {
 				if (err) {
 					console.log(err)
-					return res.status(500).json({
+					return res.status(403).json({
 						massage: 'Не вийшло видалити пост'
 					})
 				}
@@ -105,7 +117,7 @@ export const create = async (req, res) => {
 		const doc = new PostModel({
 			title: req.body.title,
 			text: req.body.text,
-			tags: req.body.tags,
+			tags: req.body.tags.split(','),
 			imageUrl: req.body.imageUrl,
 			user: req.userId,
 		})
@@ -135,7 +147,7 @@ export const update = async (req, res) => {
 			{
 				title: req.body.title,
 				text: req.body.text,
-				tags: req.body.tags,
+				tags: req.body.tags.split(','),
 				imageUrl: req.body.imageUrl,
 				user: req.userId,
 			})
