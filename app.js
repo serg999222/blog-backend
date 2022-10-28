@@ -8,7 +8,7 @@ import multer from 'multer'
 import { handleValidationResult } from './utils/handleValidationResult.js'
 import cors from 'cors'
 
-
+const PORT = process.env.PORT || 4444
 
 mongoose.connect('mongodb+srv://admin:wwwww@cluster0.kvojw2y.mongodb.net/blog?retryWrites=true&w=majority')
 	.then(() => console.log('DB ok'))
@@ -50,7 +50,7 @@ app.get('/tags', PostController.getLastTags)
 app.patch('/posts/:id', checkAuth, postCreateValidation, handleValidationResult, PostController.update)
 app.delete('/posts/:id', checkAuth, PostController.remove)
 
-app.listen(4444, (err) => {
+app.listen(PORT, (err) => {
 	if (err) {
 		return console.log(err)
 	}
