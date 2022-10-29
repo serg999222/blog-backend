@@ -1,19 +1,20 @@
-import { body } from 'express-validator'
+// import { body } from 'express-validator'
+const { body } = require('express-validator')
 
-export const loginValidation = [
+module.exports.loginValidation = [
 	body('email', 'Невірний формат пошти').isEmail(),
 	body('password', 'Пароль має бути мінімум 5 символів').isLength({ min: 5 }),
 
 ]
 
-export const registerValidation = [
+module.exports.registerValidation = [
 	body('email', 'Невірний формат пошти').isEmail(),
 	body('password', 'Пароль має бути мінімум 5 символів').isLength({ min: 5 }),
 	body('fullName', "Вкажіть прізвище та ім'я").isLength({ min: 3 }),
 	body('avatarUrl', "Невірне посилання на аватарку ").optional().isURL()
 ]
 
-export const postCreateValidation = [
+module.exports.postCreateValidation = [
 	body('title', 'Введіть заголовок статті').isLength({ min: 3 }),
 	body('text', 'Введіть текст статті').isLength({ min: 5 }),
 	body('tags', "Невірний формат тегу").optional().isString(),

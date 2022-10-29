@@ -1,12 +1,21 @@
-import express, { response } from 'express'
-import * as UserController from './controllers/UserController.js'
-import * as PostController from './controllers/PostController.js'
-import mongoose from 'mongoose'
-import { registerValidation, loginValidation, postCreateValidation } from './validations.js'
-import checkAuth from './utils/checkAuth.js'
-import multer from 'multer'
-import { handleValidationResult } from './utils/handleValidationResult.js'
-import cors from 'cors'
+const express = require('express')
+const UserController = require('./controllers/UserController.js')
+const PostController = require('./controllers/PostController.js')
+// import * as UserController from './controllers/UserController.js'
+// import * as PostController from './controllers/PostController.js'
+// import mongoose from 'mongoose'
+const mongoose = require('mongoose')
+// import { registerValidation, loginValidation, postCreateValidation } from './validations.js'
+const { registerValidation, loginValidation, postCreateValidation } = require('./validations.js')
+// import checkAuth from './utils/checkAuth.js'
+const checkAuth = require('./utils/checkAuth.js')
+// import multer from 'multer'
+const multer = require('multer')
+// import { handleValidationResult } from './utils/handleValidationResult.js'
+const { handleValidationResult } = require('./utils/handleValidationResult.js')
+// import cors from 'cors'
+const cors = require('cors')
+
 
 const PORT = process.env.PORT || 4444
 
