@@ -5,7 +5,7 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const validationResult = require('express-validator')
-const UserModel = require('../models/User.js')
+const { UserModel } = require('../models/User.js')
 
 
 
